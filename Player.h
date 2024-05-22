@@ -1,9 +1,9 @@
-#pragma once
 #include "Model.h"
 #include "WorldTransform.h"
-#include <cassert>
 
-class Skydome {
+#pragma once
+class Player {
+
 public:
 	/// <summary>
 	/// 初期化
@@ -20,18 +20,13 @@ public:
 	/// </summary>
 	void Draw();
 
-	private:
-		// ワールド返還データ
-	    WorldTransform worldTransform_;
-
-	    ViewProjection* viewProjection_ = nullptr;
-
-
-
-		// モデル
-	    Model* model_ = nullptr;
-
-		// テクスチャハンドル
-	    uint32_t textureHandle_ = 0u;
-
+private:
+	// ワールド変換データ
+	WorldTransform worldTransform_;
+	// ビュープロジェクション
+	ViewProjection* viewProjection_ = nullptr;
+	// モデル
+	Model* model_ = nullptr;
+	// テクスチャハンドル
+	uint32_t textureHandle_ = 0u;
 };

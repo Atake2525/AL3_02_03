@@ -1,7 +1,7 @@
 #include "MathUtilityForText.h"
 
 // 1, x軸回転行列
-Matrix4x4 MathUtilityForText::MakeRotateXMatrix(float radian) {
+Matrix4x4 MakeRotateXMatrix(float radian) {
 	Matrix4x4 ans = {0};
 
 	ans.m[0][0] = 1;
@@ -15,7 +15,7 @@ Matrix4x4 MathUtilityForText::MakeRotateXMatrix(float radian) {
 };
 
 // 2, y軸回転行列
-Matrix4x4 MathUtilityForText::MakeRotateYMatrix(float radian) {
+Matrix4x4 MakeRotateYMatrix(float radian) {
 	Matrix4x4 ans = {0};
 
 	ans.m[0][0] = std::cos(radian);
@@ -29,7 +29,7 @@ Matrix4x4 MathUtilityForText::MakeRotateYMatrix(float radian) {
 };
 
 // 3, z軸回転行列
-Matrix4x4 MathUtilityForText::MakeRotateZMatrix(float radian) {
+Matrix4x4 MakeRotateZMatrix(float radian) {
 	Matrix4x4 ans = {0};
 
 	ans.m[0][0] = std::cos(radian);
@@ -42,7 +42,7 @@ Matrix4x4 MathUtilityForText::MakeRotateZMatrix(float radian) {
 	return ans;
 };
 
-Matrix4x4 MathUtilityForText::Multiply(const Matrix4x4& m1, const Matrix4x4& m2) {
+Matrix4x4 Multiply(const Matrix4x4& m1, const Matrix4x4& m2) {
 	Matrix4x4 ans;
 	for (int a = 0; a < 4; a++) {
 		for (int b = 0; b < 4; b++) {
@@ -53,7 +53,7 @@ Matrix4x4 MathUtilityForText::Multiply(const Matrix4x4& m1, const Matrix4x4& m2)
 };
 
 // ３次元アフィン変換行列
-Matrix4x4 MathUtilityForText::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
+Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
 	Matrix4x4 S = {0};
 	Matrix4x4 R = {0};
 	Matrix4x4 rX = {0};
