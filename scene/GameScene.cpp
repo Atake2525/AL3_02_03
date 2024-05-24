@@ -3,7 +3,30 @@
 #include <cassert>
 
 
+void GameScene::GenerateBlocks() {
+	// 要素数
+	const uint32_t kNumBlockVirtical = mapChipField_->GetNumBlockVirtical();
+	const uint32_t kNumBlockHorizontal = mapChipField_->GetNumBlockHorizontal();
 
+	// 要素数を変更する
+	// 列数を設定(縦方向のブロック数)
+	worldTransformBlocks_.resize(kNumBlockVirtical);
+	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
+		// 1列の要素数を設定(横方向のブロック数)
+		worldTransformBlocks_[i].resize(kNumBlockHorizontal);
+	}
+	// ブロックの生成
+	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
+		for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
+			if (mapChipField_->GetMapChiptypeByIndex(j, i) == MapChipType::KBlock) {
+				WorldTransform* worldTransform = new WorldTransform();
+				worldTransform->Initialize();
+				worldTransformBlocks_[i][j] = worldTransform;
+				worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPositionByIndex(j, i);
+			}
+		}
+	}
+}
 
 
 GameScene::GameScene() {}
@@ -20,6 +43,7 @@ GameScene::~GameScene() {
 	delete skyDome_;
 	delete player_;
 	delete debugCamera_;
+	delete mapChipField_;
 }
 
 void GameScene::Initialize() {
@@ -43,38 +67,20 @@ void GameScene::Initialize() {
 	// プレイヤーキャラの初期化
 	player_->Initialize(model_, texturehandle_, &viewProjection_);
 
-	//デバッグカメラの作成
+	// デバッグカメラの作成
 	debugCamera_ = new DebugCamera(1280, 720);
 
 	viewProjection_.Initialize();
 
 	texturehandle_ = TextureManager::Load("cube/cube.jpg");
 
-	//要素数
-	const uint32_t kNumBlockVirtical = 10;
-	const uint32_t kNumBlockHorizontal = 20;
-	//ブロック1個分の増幅
-	const float kBlockWidth = 2.0f;
-	const float kBlockHeight = 2.0f;
-	//要素数を変更する
-	//列数を設定(縦方向のブロック数)
-	worldTransformBlocks_.resize(kNumBlockVirtical);
-	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
-		//1列の要素数を設定(横方向のブロック数)
-		worldTransformBlocks_[i].resize(kNumBlockHorizontal);
-	}
+	GenerateBlocks();
 
-	//キューブの生成
-	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
-		for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
-			if (0 == (i + j) %2)
-				continue;
-			worldTransformBlocks_[i][j] = new WorldTransform();
-			worldTransformBlocks_[i][j]->Initialize();
-			worldTransformBlocks_[i][j]->translation_.x = kBlockWidth * j;
-			worldTransformBlocks_[i][j]->translation_.y = kBlockHeight* i;
-		}
-	}
+	mapChipField_ = new MapChipField;
+	mapChipField_->LoadMapChipCsv("Resources/blocks.csv");
+	
+
+	
 
 }
 

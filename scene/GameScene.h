@@ -15,6 +15,7 @@
 #include "Skydome.h"
 #include "MathUtilityForText.h"
 #include "Player.h"
+#include "MapChipField.h"
 
 /// <summary>
 /// ゲームシーン
@@ -75,6 +76,11 @@ private: // メンバ変数
 	Skydome* skyDome_ = nullptr;
 	
 	uint32_t texturehandle_ = 0;
+
+	// マップチップフィールド
+	MapChipField* mapChipField_;
+
+	void GenerateBlocks();
 
 
 
