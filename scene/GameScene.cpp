@@ -74,10 +74,10 @@ void GameScene::Initialize() {
 
 	texturehandle_ = TextureManager::Load("cube/cube.jpg");
 
-	GenerateBlocks();
 
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("Resources/blocks.csv");
+	GenerateBlocks();
 	
 
 	

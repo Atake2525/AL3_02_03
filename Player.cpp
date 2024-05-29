@@ -10,8 +10,13 @@ void Player::Initialize(Model* model, uint32_t textureHandle, ViewProjection* vi
 
 	worldTransform_.Initialize();
 	viewProjection_ = viewProjection;
+	worldTransform_.translation_.x = 2;
+	worldTransform_.translation_.y = 2;
 };
 
-void Player::Update() { worldTransform_.TransferMatrix(); };
+void Player::Update() { 
+	worldTransform_.UpdateMatrix();
+	
+};
 
 void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_, textureHandle_); };
